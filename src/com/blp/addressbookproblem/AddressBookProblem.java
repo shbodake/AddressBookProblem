@@ -1,35 +1,38 @@
 package com.blp.addressbookproblem;
-
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 public class AddressBookProblem {
-    private class Contact {
-        String firstName, lastName, address, city, state, emailId;
-        int zipCode;
-        long mobileNumber;
-    }
 
-    public void printContact() {
-        Contact person = new Contact();
-        person.firstName = "Sayali";
-        person.lastName = "Bodake";
-        person.address = "Sai Paradise Apartment";
-        person.city = "Nasik";
-        person.state = "Maharashtra";
-        person.zipCode = 422003;
-        person.mobileNumber = 9850521236L;
-        person.emailId = "sayalibodake28@gmail.com";
-        System.out.println("Contact Details");
-        System.out.println("Name         : " + person.firstName + " " + person.lastName + "\n"
-                + "Address      : " + person.address + "\n"
-                + "City         : " + person.city + "\n"
-                + "State        : " + person.state + "\n"
-                + "ZipCode      : " + person.zipCode + "\n"
-                + "MobileNumber : " + person.mobileNumber + "\n"
-                + "EmailId      : " + person.emailId + "\n");
-    }
+         ContactDetails person = new ContactDetails();
+         List<ContactDetails> contactDetailsList = new ArrayList<>();
 
+    public void addNewContact() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter First Name : ");
+        String firstName = scanner.next();
+        System.out.println("Enter Last Name : ");
+        String lastName = scanner.next();
+        System.out.println("Enter Address : ");
+        String address = scanner.next();
+        System.out.println("Enter City : ");
+        String city = scanner.next();
+        System.out.println("Enter State : ");
+        String state = scanner.next();
+        System.out.println("Enter ZipCode : ");
+        int zipCode = scanner.nextInt();
+        System.out.println("Enter Mobile Number : ");
+        long mobileNumber = scanner.nextLong();
+        System.out.println("Enter EmailId : ");
+        String emailId = scanner.next();
+        person = new ContactDetails(firstName, lastName, address, city, state, zipCode, mobileNumber, emailId);
+        contactDetailsList.add(person);
+        System.out.println(contactDetailsList);
+
+    }
     public static void main(String[] args) {
-        AddressBookProblem addressBook = new AddressBookProblem();
-        addressBook.printContact();
+        AddressBookProblem addressBookProblem = new AddressBookProblem();
+        addressBookProblem.addNewContact();
     }
 }
 
