@@ -41,14 +41,28 @@ public class AddressBookProblem {
             editContact();
         }
     }
+    public void deleteContact() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the first name of person to delete contact");
+        String deleteName = scanner.next();
+        if (deleteName.equalsIgnoreCase(person.getFirstName())) {
+            System.out.println("Deleted " + person.getFirstName() + " details");
+            person = null;
+        } else {
+            System.out.println("The Entered First Name Is Not Match");
+            deleteContact();
+        }
+    }
     public static void main(String[] args) {
         AddressBookProblem addressBookProblem = new AddressBookProblem();
         addressBookProblem.addNewContact();
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter Y To Edit The Contact");
-        String choice = scanner.nextLine();
-        if (choice.equals("y") || choice.equals("Y")) {
+        System.out.println("Enter 1 To Edit The Contact and 2 To Delete The Contact ");
+        int choice = scanner.nextInt();
+        if (choice == 1) {
             addressBookProblem.editContact();
+        } else {
+            addressBookProblem.deleteContact();
         }
     }
     }
