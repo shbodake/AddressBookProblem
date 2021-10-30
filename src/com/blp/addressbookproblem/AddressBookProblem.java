@@ -7,7 +7,17 @@ public class AddressBookProblem {
          ContactDetails person = new ContactDetails();
          List<ContactDetails> contactDetailsList = new ArrayList<>();
 
-    public void addNewContact() {
+    public void addContact() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the number of contacts you want to enter");
+        int number = scanner.nextInt();
+        for (int i = 0; i < number; i++) {
+            System.out.println("Enter the contact details of person ");
+            writeContact();
+        }
+    }
+    public void writeContact() {
+        ContactDetails person = new ContactDetails();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter First Name : ");
         String firstName = scanner.next();
@@ -33,36 +43,63 @@ public class AddressBookProblem {
     public void editContact() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the first name of person to edit contact");
-        String firstName = scanner.next();
-        if (firstName.equalsIgnoreCase(person.getFirstName())) {
-            addNewContact();
-        } else {
-            System.out.println("The Entered First Name Is Not Match");
-            editContact();
+        String editName = scanner.next();
+        boolean edited = false;
+        for (int i = 0; i < contactDetailsList.size(); i++) {
+            String name = contactDetailsList.get(i).getFirstName();
+        if (name.equalsIgnoreCase(editName)) {
+            writeContact();
+            edited = true;
+            break;
         }
+    }
+        if (!edited) {
+        System.out.println("enter name is incorrect");
+    }
     }
     public void deleteContact() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the first name of person to delete contact");
         String deleteName = scanner.next();
-        if (deleteName.equalsIgnoreCase(person.getFirstName())) {
-            System.out.println("Deleted " + person.getFirstName() + " details");
-            person = null;
-        } else {
-            System.out.println("The Entered First Name Is Not Match");
-            deleteContact();
+        int i = 0;
+        for ( ;i < contactDetailsList.size(); i++) {
+            String name = contactDetailsList.get(i).getFirstName();
+        if (name.equalsIgnoreCase(deleteName)) {
+            break;
+            }
+        }
+        if (i < contactDetailsList.size()) {
+            contactDetailsList.remove(i);
+            System.out.println("Contact Deleted");
+            System.out.println("Remaining contacts in the book isgit");
+        }else {
+            System.out.println("Contact not find");
         }
     }
     public static void main(String[] args) {
         AddressBookProblem addressBookProblem = new AddressBookProblem();
-        addressBookProblem.addNewContact();
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter 1 To Edit The Contact and 2 To Delete The Contact ");
-        int choice = scanner.nextInt();
-        if (choice == 1) {
-            addressBookProblem.editContact();
-        } else {
-            addressBookProblem.deleteContact();
+        while (true) {
+            System.out.println("Enter \n 1 To add The contact \n 2 To edit the contact \n 3 To delete the contact \n 4 to exit");
+            int choice = scanner.nextInt();
+            switch (choice) {
+                case 1:
+                    addressBookProblem.addContact();
+                    break;
+                case 2:
+                    addressBookProblem.editContact();
+                    break;
+                case 3:
+                    addressBookProblem.deleteContact();
+                    break;
+                case 4:
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Enter the wrong input");
+                    continue;
+            }
+
         }
     }
     }
