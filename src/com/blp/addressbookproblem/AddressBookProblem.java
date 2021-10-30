@@ -30,11 +30,29 @@ public class AddressBookProblem {
         System.out.println(contactDetailsList);
 
     }
+    public void editContact() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the first name of person to edit contact");
+        String firstName = scanner.next();
+        if (firstName.equalsIgnoreCase(person.getFirstName())) {
+            addNewContact();
+        } else {
+            System.out.println("The Entered First Name Is Not Match");
+            editContact();
+        }
+    }
     public static void main(String[] args) {
         AddressBookProblem addressBookProblem = new AddressBookProblem();
         addressBookProblem.addNewContact();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter Y To Edit The Contact");
+        String choice = scanner.nextLine();
+        if (choice.equals("y") || choice.equals("Y")) {
+            addressBookProblem.editContact();
+        }
     }
-}
+    }
+
 
 
 
