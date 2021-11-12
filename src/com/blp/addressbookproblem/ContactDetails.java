@@ -7,21 +7,23 @@ public class ContactDetails {
     private String city;
     private String state;
     private int zipCode;
-    private long mobileNo;
+    private long mobileNumber;
     private String emailId;
 
-    public ContactDetails(String firstName, String lastName, String address, String city, String state, int zipCode, long mobileNumber, String emailId) {
+    public ContactDetails() {
+
+    }
+
+    public ContactDetails(String firstName, String lastName, String address, String city,
+                          String state, int zipCode, long mobileNumber, String emailId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.city = city;
         this.state = state;
         this.zipCode = zipCode;
-        this.mobileNo = mobileNumber;
+        this.mobileNumber = mobileNumber;
         this.emailId = emailId;
-    }
-    public ContactDetails(){
-
     }
 
     public String getFirstName() {
@@ -73,11 +75,11 @@ public class ContactDetails {
     }
 
     public long getMobileNo() {
-        return mobileNo;
+        return mobileNumber;
     }
 
     public void setMobileNo(long mobileNo) {
-        this.mobileNo = mobileNo;
+        this.mobileNumber = mobileNo;
     }
 
     public String getEmailId() {
@@ -97,9 +99,8 @@ public class ContactDetails {
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +
                 ", zipCode=" + zipCode +
-                ", mobileNo=" + mobileNo +
+                ", mobileNo=" + mobileNumber +
                 ", emailId='" + emailId + '\'' +
                 '}';
     }
 }
-
