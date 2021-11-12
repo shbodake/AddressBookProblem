@@ -1,25 +1,21 @@
 package com.blp.addressbookproblem;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class AddressBook {
-      /*
-   Declaring The Add Contact Method
-   And Entering The Contact Details By Using Scanner Class
-   And Printing The Contact Details Of Person
-    */
+
+  
 
     ContactDetails person = new ContactDetails();
     List<ContactDetails> contactDetailsList = new ArrayList<>();
-
     public void addContact() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the number of contacts you want to enter");
         int number = scanner.nextInt();
         for (int i = 0; i < number; i++) {
 
-//            checking the duplicate contact by contact name.
             System.out.println("Enter the first name of person");
             String fName = scanner.next();
             if (fName.equals(person.getFirstName())) {
@@ -32,6 +28,11 @@ public class AddressBook {
         }
     }
 
+
+            System.out.println("Enter the contact details of person ");
+            writeContact();
+        }
+    }
     public void writeContact() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter First Name : ");
@@ -54,13 +55,6 @@ public class AddressBook {
         contactDetailsList.add(person);
     }
 
-    /*
-    Declaring The Edit Contact Method
-    TO Edit The Details Of Contact
-    The Details Of Contact Edit By Using FirstName
-    If First Name Is Match The Contact Will Edit
-    */
-
     public void editContact() {
         System.out.println("Enter the first name of person to edit contact");
         Scanner scanner = new Scanner(System.in);
@@ -80,12 +74,6 @@ public class AddressBook {
         }
     }
 
-    /*
-    Declaring Delete Contact Method
-    TO delete The Details Of Contact
-    The Details Of Contact Delete By Using FirstName
-    If First Name Is Match Then Contact Will Delete
-    */
 
     public void deleteContact() {
         System.out.println("Enter the first name of person to delete contact");
