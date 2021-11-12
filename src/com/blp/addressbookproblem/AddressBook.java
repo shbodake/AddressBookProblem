@@ -1,12 +1,18 @@
 package com.blp.addressbookproblem;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-public class AddressBookProblem {
 
-         ContactDetails person = new ContactDetails();
-         List<ContactDetails> contactDetailsList = new ArrayList<>();
+public class AddressBook {
+     /*
+   Declaring The Add Contact Method
+   And Entering The Contact Details By Using Scanner Class
+   And Printing The Contact Details Of Person
+    */
 
+    ContactDetails person = new ContactDetails();
+    List<ContactDetails> contactDetailsList = new ArrayList<>();
     public void addContact() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the number of contacts you want to enter");
@@ -17,7 +23,6 @@ public class AddressBookProblem {
         }
     }
     public void writeContact() {
-        ContactDetails person = new ContactDetails();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter First Name : ");
         String firstName = scanner.next();
@@ -37,74 +42,58 @@ public class AddressBookProblem {
         String emailId = scanner.next();
         person = new ContactDetails(firstName, lastName, address, city, state, zipCode, mobileNumber, emailId);
         contactDetailsList.add(person);
-        System.out.println(contactDetailsList);
-
     }
+
+    /*
+    Declaring The Edit Contact Method
+    TO Edit The Details Of Contact
+    The Details Of Contact Edit By Using FirstName
+    If First Name Is Match The Contact Will Edit
+    */
+
     public void editContact() {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the first name of person to edit contact");
+        Scanner scanner = new Scanner(System.in);
         String editName = scanner.next();
         boolean edited = false;
         for (int i = 0; i < contactDetailsList.size(); i++) {
             String name = contactDetailsList.get(i).getFirstName();
-        if (name.equalsIgnoreCase(editName)) {
-            writeContact();
-            edited = true;
-            break;
+            if (name.equalsIgnoreCase(editName)) {
+                contactDetailsList.remove(person);
+                writeContact();
+                edited = true;
+                break;
+            }
+        }
+        if (!edited) {
+            System.out.println("enter name is incorrect");
         }
     }
-        if (!edited) {
-        System.out.println("enter name is incorrect");
-    }
-    }
+
+    /*
+    Declaring Delete Contact Method
+    TO delete The Details Of Contact
+    The Details Of Contact Delete By Using FirstName
+    If First Name Is Match Then Contact Will Delete
+    */
+
     public void deleteContact() {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the first name of person to delete contact");
+        Scanner scanner = new Scanner(System.in);
         String deleteName = scanner.next();
         int i = 0;
         for ( ;i < contactDetailsList.size(); i++) {
             String name = contactDetailsList.get(i).getFirstName();
-        if (name.equalsIgnoreCase(deleteName)) {
-            break;
+            if (name.equalsIgnoreCase(deleteName)) {
+                break;
             }
         }
         if (i < contactDetailsList.size()) {
             contactDetailsList.remove(i);
             System.out.println("Contact Deleted");
-            System.out.println("Remaining contacts in the book isgit");
         }else {
             System.out.println("Contact not find");
         }
     }
-    public static void main(String[] args) {
-        AddressBookProblem addressBookProblem = new AddressBookProblem();
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            System.out.println("Enter \n 1 To add The contact \n 2 To edit the contact \n 3 To delete the contact \n 4 to exit");
-            int choice = scanner.nextInt();
-            switch (choice) {
-                case 1:
-                    addressBookProblem.addContact();
-                    break;
-                case 2:
-                    addressBookProblem.editContact();
-                    break;
-                case 3:
-                    addressBookProblem.deleteContact();
-                    break;
-                case 4:
-                    System.exit(0);
-                    break;
-                default:
-                    System.out.println("Enter the wrong input");
-                    continue;
-            }
-
-        }
-    }
-    }
-
-
-
-
+}
 
