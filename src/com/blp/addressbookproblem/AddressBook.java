@@ -1,20 +1,20 @@
 package com.blp.addressbookproblem;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class AddressBook {
+
     ContactDetails person = new ContactDetails();
     List<ContactDetails> contactDetailsList = new ArrayList<>();
-
     public void addContact() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the number of contacts you want to enter");
         int number = scanner.nextInt();
         for (int i = 0; i < number; i++) {
 
-//            checking the duplicate contact by contact name.
             System.out.println("Enter the first name of person");
             String fName = scanner.next();
             if (fName.equals(person.getFirstName())) {
@@ -27,6 +27,11 @@ public class AddressBook {
         }
     }
 
+
+            System.out.println("Enter the contact details of person ");
+            writeContact();
+        }
+    }
     public void writeContact() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter First Name : ");
@@ -128,6 +133,7 @@ public class AddressBook {
             System.out.println("Search result: " + contact);
         }
     }
+
 
     public void searchByCity(String city) {
         List<ContactDetails> collect = contactDetailsList.stream().filter(p -> p.getCity().equalsIgnoreCase(city)).collect(Collectors.toList());
