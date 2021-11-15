@@ -82,5 +82,8 @@ public class MultipleAddressBooks {
 
     public void searchByOptions() {
     }
+
+    public void viewByOptions() {
+    }
 }
 

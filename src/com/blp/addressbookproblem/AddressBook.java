@@ -195,5 +195,35 @@ public class AddressBook {
             }
         }
     }
+
+    public void viewByOptions() {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("Enter\n 1. By name\n 2. By city\n 3. By state\n 4. for previous menu");
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+            switch (choice) {
+                case 1:
+                    System.out.println("Enter name: ");
+                    String name = scanner.nextLine();
+                    searchByName(name);
+                    break;
+                case 2:
+                    System.out.println("Enter city: ");
+                    String city = scanner.nextLine();
+                    searchByCity(city);
+                    break;
+                case 3:
+                    System.out.println("Enter state: ");
+                    String state = scanner.nextLine();
+                    System.out.println(state);
+                    break;
+                case 4:
+                    return;
+                default:
+                    System.out.println("Entered choice is incorrect!.. please enter correct choice");
+            }
+        }
+    }
 }
 
