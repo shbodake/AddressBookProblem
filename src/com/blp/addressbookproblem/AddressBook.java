@@ -5,6 +5,13 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class AddressBook {
+
+     /*
+   Declaring The Add Contact Method
+   And Entering The Contact Details By Using Scanner Class
+   And Printing The Contact Details Of Person
+    */
+
     ContactDetails person = new ContactDetails();
     List<ContactDetails> contactDetailsList = new ArrayList<>();
 
@@ -48,6 +55,48 @@ public class AddressBook {
         person = new ContactDetails(firstName, lastName, address, city, state, zipCode, mobileNumber, emailId);
         contactDetailsList.add(person);
     }
+    public void searchByName(String name) {
+        List<ContactDetails> collect = contactDetailsList.stream().filter(p -> p.getFirstName().equalsIgnoreCase(name)).collect(Collectors.toList());
+        for (ContactDetails contact : collect) {
+            System.out.println("Search result: " + contact);
+        }
+    }
+
+    public void searchByCity(String city) {
+        List<ContactDetails> collect = contactDetailsList.stream().filter(p -> p.getCity().equalsIgnoreCase(city)).collect(Collectors.toList());
+        for (ContactDetails contact : collect) {
+            System.out.println("Search result: " + contact);
+        }
+    }
+
+    public void searchByState(String state) {
+        List<ContactDetails> collect = contactDetailsList.stream().filter(p -> p.getCity().equalsIgnoreCase(state)).collect(Collectors.toList());
+        for (ContactDetails contact : collect) {
+            System.out.println("Search result: " + contact);
+        }
+    }
+
+    /*
+   Declaring The Count Contacts Method By City Name
+   Using Java Streams To Count The Contacts By using City Name
+   */
+    public void countContactsByUsingCity(String cityName) {
+        long count = 0;
+        long count1 = contactDetailsList.stream().filter(g -> g.getCity().equalsIgnoreCase(cityName)).count();
+        for (ContactDetails contact : contactDetailsList) {
+            count1 = count1 + count;
+        }
+        System.out.println("Contact List :" + count1);
+
+    }
+
+    /*
+    Declaring The Edit Contact Method
+    TO Edit The Details Of Contact
+    The Details Of Contact Edit By Using FirstName
+    If First Name Is Match The Contact Will Edit
+    */
+
     public void editContact() {
         System.out.println("Enter the first name of person to edit contact");
         Scanner scanner = new Scanner(System.in);
@@ -122,26 +171,14 @@ public class AddressBook {
             }
         }
     }
-    public void searchByName(String name) {
-        List<ContactDetails> collect = contactDetailsList.stream().filter(p -> p.getFirstName().equalsIgnoreCase(name)).collect(Collectors.toList());
-        for (ContactDetails contact : collect) {
-            System.out.println("Search result: " + contact);
-        }
-    }
 
-    public void searchByCity(String city) {
-        List<ContactDetails> collect = contactDetailsList.stream().filter(p -> p.getCity().equalsIgnoreCase(city)).collect(Collectors.toList());
-        for (ContactDetails contact : collect) {
-            System.out.println("Search result: " + contact);
-        }
-    }
+     /*
+    Declaring Delete Contact Method
+    TO delete The Details Of Contact
+    The Details Of Contact Delete By Using FirstName
+    If First Name Is Match Then Contact Will Delete
+    */
 
-    public void searchByState(String state) {
-        List<ContactDetails> collect = contactDetailsList.stream().filter(p -> p.getCity().equalsIgnoreCase(state)).collect(Collectors.toList());
-        for (ContactDetails contact : collect) {
-            System.out.println("Search result: " + contact);
-        }
-    }
     public void deleteContact() {
         System.out.println("Enter the first name of person to delete contact");
         Scanner scanner = new Scanner(System.in);
