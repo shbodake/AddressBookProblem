@@ -1,260 +1,171 @@
 package com.blp.addressbookproblem;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class AddressBook {
+    public List<Contacts> list = new ArrayList<>();
+    Scanner scan = new Scanner(System.in);
 
-     /*
-   Declaring The Add Contact Method
-   And Entering The Contact Details By Using Scanner Class
-   And Printing The Contact Details Of Person
-    */
+    public void operation() {
+        System.out.println("Enter Number of contact you want to add");
+        int count = scan.nextInt();
+        int contactCount = 1;
+        while (contactCount <= count) {
 
-    ContactDetails person = new ContactDetails();
-    List<ContactDetails> contactDetailsList = new ArrayList<>();
+            this.add();
+            contactCount++;
+        }
+        boolean status = true;
+        do {
 
-    public void addContact() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the number of contacts you want to enter");
-        int number = scanner.nextInt();
-        for (int i = 0; i < number; i++) {
+            System.out.println("Choose Operation you want to do");
+            System.out.println("1. Add\t2.Edit\t3.Delete\t4.sortCity\t5.sortState\t6.show\t7.Count");
 
-//            checking the duplicate contact by contact name.
-            System.out.println("Enter the first name of person");
-            String fName = scanner.next();
-            if (fName.equals(person.getFirstName())) {
-                System.out.println("The entered person is already exist.");
-            } else {
-                System.out.println("Enter the contact details of person ");
-                writeContact();
-                System.out.println("contact added Successfully");
+            switch (scan.nextInt()) {
+                case 1:
+                    add();
+                    break;
+                case 2:
+                    edit();
+                    break;
+                case 3:
+                    delete();
+                    break;
+                case 4:
+                    sortCity();
+                case 5:
+                    sortState();
+                case 6:
+                    print();
+                case 7:
+                    countList();
+                default:
+                    status = false;
             }
-        }
+        } while (status);
     }
 
-    public void writeContact() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter First Name : ");
-        String firstName = scanner.next();
-        System.out.println("Enter Last Name : ");
-        String lastName = scanner.next();
-        System.out.println("Enter Address : ");
-        String address = scanner.next();
-        System.out.println("Enter City : ");
-        String city = scanner.next();
-        System.out.println("Enter State : ");
-        String state = scanner.next();
-        System.out.println("Enter ZipCode : ");
-        int zipCode = scanner.nextInt();
-        System.out.println("Enter Mobile Number : ");
-        long mobileNumber = scanner.nextLong();
-        System.out.println("Enter EmailId : ");
-        String emailId = scanner.next();
-        person = new ContactDetails(firstName, lastName, address, city, state, zipCode, mobileNumber, emailId);
-        contactDetailsList.add(person);
-    }
-    public void searchByName(String name) {
-        List<ContactDetails> collect = contactDetailsList.stream().filter(p -> p.getFirstName().equalsIgnoreCase(name)).collect(Collectors.toList());
-        for (ContactDetails contact : collect) {
-            System.out.println("Search result: " + contact);
-        }
-    }
+    public void add() {
+        Contacts contacts = new Contacts();
+        System.out.println("Enter the First name:");
+        String firstName = scan.next();
+        contacts.setFirstName(firstName);
 
-    public void searchByCity(String city) {
-        List<ContactDetails> collect = contactDetailsList.stream().filter(p -> p.getCity().equalsIgnoreCase(city)).collect(Collectors.toList());
-        for (ContactDetails contact : collect) {
-            System.out.println("Search result: " + contact);
-        }
-    }
+        System.out.println("Enter the Last name:");
+        String lastName = scan.next();
+        contacts.setLastName(lastName);
 
-    public void searchByState(String state) {
-        List<ContactDetails> collect = contactDetailsList.stream().filter(p -> p.getCity().equalsIgnoreCase(state)).collect(Collectors.toList());
-        for (ContactDetails contact : collect) {
-            System.out.println("Search result: " + contact);
-        }
+        System.out.println("Enter the address:");
+        String address = scan.next();
+        contacts.setAddress(address);
+
+        System.out.println("Enter the City:");
+        String city = scan.next();
+        contacts.setCity(city);
+
+        System.out.println("Enter the State:");
+        String state = scan.next();
+        contacts.setState(state);
+
+        System.out.println("Enter the Zip:");
+        Long zip = scan.nextLong();
+        contacts.setZip(zip);
+
+        System.out.println("Enter the Phone Number:");
+        Long phoneNumber = scan.nextLong();
+        contacts.setPhoneNumber(phoneNumber);
+
+        System.out.println("Enter the Email");
+        String email = scan.next();
+        contacts.setEmail(email);
+        this.list.add(contacts);
+        print();
     }
 
-    /*
-   Declaring The Count Contacts Method By City Name
-   Using Java Streams To Count The Contacts By using City Name
-   */
-    public void countContactsByUsingCity(String cityName) {
-        long count = 0;
-        long count1 = contactDetailsList.stream().filter(g -> g.getCity().equalsIgnoreCase(cityName)).count();
-        for (ContactDetails contact : contactDetailsList) {
-            count1 = count1 + count;
-        }
-        System.out.println("Contact List :" + count1);
+    public void edit() {
+        System.out.println("Enter your First name:");
+        String firstName = scan.next();
 
-    }
+        Iterator<Contacts> iterator = this.list.listIterator();
 
-    /*
-    Declaring The Edit Contact Method
-    TO Edit The Details Of Contact
-    The Details Of Contact Edit By Using FirstName
-    If First Name Is Match The Contact Will Edit
-    */
+        while (iterator.hasNext()) {
+            Contacts contacts = iterator.next();
 
-    public void editContact() {
-        System.out.println("Enter the first name of person to edit contact");
-        Scanner scanner = new Scanner(System.in);
-        String editName = scanner.next();
-        for (int i = 0; i < contactDetailsList.size(); i++) {
-            String name = contactDetailsList.get(i).getFirstName();
-            if (name.equalsIgnoreCase(editName)) {
-                System.out.println("Enter name is exit. you can edit the details");
-                while (true) {
-                    System.out.println("Enter\n 1. To edit all details\n 2. To edit certain detail\n 3. for previous menu");
-                    int choose = scanner.nextInt();
-                    switch (choose) {
-                        case 1:
-                contactDetailsList.remove(i);
-                            writeContact();
-                            break;
-                        case 2:
-                            while (true) {
-                                System.out.println("Enter\n 1. for First Name\n 2. for Last Name\n 3. for City\n 4. for State\n" +
-                                        " 5. for Zip Code\n 6. for Phone\n 7. forEmail\n 8. for previous menu");
-                                int option = scanner.nextInt();
-                                switch (option) {
-                                    case 1:
-                                        System.out.println("Enter new First Name");
-                                        String newFirstName = scanner.next();
-                                        contactDetailsList.get(i).setFirstName(newFirstName);
-                                        break;
-                                    case 2:
-                                        System.out.println("Enter new Last Name");
-                                        String newLastName = scanner.next();
-                                        contactDetailsList.get(i).setLastName(newLastName);
-                                        break;
-                                    case 3:
-                                        System.out.println("Enter new City");
-                                        String newCity = scanner.next();
-                                        contactDetailsList.get(i).setCity(newCity);
-                                        break;
-                                    case 4:
-                                        System.out.println("Enter new State");
-                                        String newState = scanner.next();
-                                        contactDetailsList.get(i).setState(newState);
-                                        break;
-                                    case 5:
-                                        System.out.println("Enter new ZipCode");
-                                        int newZip = scanner.nextInt();
-                                        contactDetailsList.get(i).setZipCode(newZip);
-                                        break;
-                                    case 6:
-                                        System.out.println("Enter new Phone Number");
-                                        int newPNumber = scanner.nextInt();
-                                        contactDetailsList.get(i).setMobileNo(newPNumber);
-                                        break;
-                                    case 7:
-                                        System.out.println("Enter new Email");
-                                        String newEmail = scanner.next();
-                                        contactDetailsList.get(i).setEmailId(newEmail);
-                                        break;
-                                    case 8:
-                                        return;
-                                    default:
-                                        System.out.println("Entered choice is incorrect!.. please enter correct choice");
-                                }
-                            }
-                        case 3:
-                            return;
-                        default:
-                            System.out.println("Entered choice is incorrect!.. please enter correct choice");
-                    }
+            if (firstName.equals(contacts.getFirstName())) {
+                System.out.println("Choose field you want to add:");
+                System.out.println("1.Last Name\t2.Address\t3.City\t4.State\t5. Zip\t6.Phone Number\t7.Email");
+                switch (scan.nextInt()) {
+                    case 1:
+                        System.out.println("Re-Correct your Last Name");
+                        contacts.setLastName(scan.next());
+                        break;
+                    case 2:
+                        System.out.println("Re-Correct your Address");
+                        contacts.setAddress(scan.next());
+                        break;
+                    case 3:
+                        System.out.println("Re-Correct your City");
+                        contacts.setCity(scan.next());
+                        break;
+                    case 4:
+                        System.out.println("Re-Correct your State");
+                        contacts.setState(scan.next());
+                        break;
+                    case 5:
+                        System.out.println("Re-Correct your Zip");
+                        contacts.setZip(scan.nextLong());
+                        break;
+                    case 6:
+                        System.out.println("Re-Correct your Phone Number");
+                        contacts.setPhoneNumber(scan.nextLong());
+                    case 7:
+                        System.out.println("Re-Correct your Email");
+                        contacts.setEmail(scan.next());
                 }
-            }else {
-                System.out.println("enter name not exist");
+
             }
         }
     }
 
-     /*
-    Declaring Delete Contact Method
-    TO delete The Details Of Contact
-    The Details Of Contact Delete By Using FirstName
-    If First Name Is Match Then Contact Will Delete
-    */
+    public void delete() {
+        System.out.println("Enter your First name:");
+        String firstName = scan.next();
 
-    public void deleteContact() {
-        System.out.println("Enter the first name of person to delete contact");
-        Scanner scanner = new Scanner(System.in);
-        String deleteName = scanner.next();
-        int i = 0;
-        for ( ;i < contactDetailsList.size(); i++) {
-            String name = contactDetailsList.get(i).getFirstName();
-            if (name.equalsIgnoreCase(deleteName)) {
-                break;
-            }
-        }
-        if (i < contactDetailsList.size()) {
-            contactDetailsList.remove(i);
-            System.out.println("Contact Deleted");
-        }else {
-            System.out.println("Contact not find");
-        }
-    }
-    public void searchByOptions() {
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            System.out.println("Enter\n 1. By name\n 2. By city\n 3. By state\n 4. for previous menu");
-            int choice = scanner.nextInt();
-            scanner.nextLine();
-            switch (choice) {
-                case 1:
-                    System.out.println("Enter name: ");
-                    String name = scanner.nextLine();
-                    contactDetailsList.forEach(book -> searchByName(name));
-                    break;
-                case 2:
-                    System.out.println("Enter city: ");
-                    String city = scanner.nextLine();
-                    contactDetailsList.forEach(book -> searchByCity(city));
-                    break;
-                case 3:
-                    System.out.println("Enter state: ");
-                    String state = scanner.nextLine();
-                    contactDetailsList.forEach(book -> searchByState(state));
-                    break;
-                case 4:
-                    return;
-                default:
-                    System.out.println("Entered choice is incorrect!.. please enter correct choice");
+        Iterator<Contacts> iterator = list.listIterator();
+        while (iterator.hasNext()) {
+            Contacts contacts = iterator.next();
+
+            if (firstName.equals(contacts.getFirstName())) {
+                list.remove(contacts);
             }
         }
     }
 
-    public void viewByOptions() {
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            System.out.println("Enter\n 1. By name\n 2. By city\n 3. By state\n 4. for previous menu");
-            int choice = scanner.nextInt();
-            scanner.nextLine();
-            switch (choice) {
-                case 1:
-                    System.out.println("Enter name: ");
-                    String name = scanner.nextLine();
-                    searchByName(name);
-                    break;
-                case 2:
-                    System.out.println("Enter city: ");
-                    String city = scanner.nextLine();
-                    searchByCity(city);
-                    break;
-                case 3:
-                    System.out.println("Enter state: ");
-                    String state = scanner.nextLine();
-                    System.out.println(state);
-                    break;
-                case 4:
-                    return;
-                default:
-                    System.out.println("Entered choice is incorrect!.. please enter correct choice");
-            }
+    public void print() {
+        Iterator<Contacts> it = list.iterator();
+        while (it.hasNext()) {
+            System.out.println(it.next());
         }
+    }
+
+    public void countList() {
+        Long total = list.stream().count();
+        System.out.println(total);
+    }
+
+    public void sortCity() {
+        Collections.sort(list, Sort.compareCity);
+    }
+
+    public void sortState() {
+        Collections.sort(list, Sort.compareState);
+    }
+
+    @Override
+    public String toString() {
+        return "AddressBook{" +
+                "list=" + list +
+                '}';
     }
 }
 
